@@ -1,0 +1,21 @@
+[package]
+name = "pulsar"
+version = "0.1.0"
+authors = ["miton18"]
+edition = "2018"
+
+[lib]
+name = "pulsar_admin"
+path = "src/lib/lib.rs"
+
+[[bin]]
+name = "pulsar"
+path = "src/main.rs"
+
+[dependencies]
+structopt = "0.2.15"
+reqwest = "0.9.16"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+colored = "1.8"
+dialoguer = "0.4.0"

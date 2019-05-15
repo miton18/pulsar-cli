@@ -1,0 +1,20 @@
+language: rust
+rust:
+- stable
+- beta
+- nightly
+matrix:
+  allow_failures:
+  - rust: nightly
+  fast_finish: true
+cache: cargo
+before_script:
+- rustup component add clippy-preview
+script:
+- cargo build --verbose --all
+- cargo clippy
+- cargo test --verbose --all
+before_deploy:
+- cargo build --all --release
+deploy:
+- ./target/release/pulsar 
