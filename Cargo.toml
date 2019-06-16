@@ -1,15 +1,16 @@
 [package]
 name = "pulsar"
-version = "0.1.0"
+version = "0.0.1"
 authors = ["miton18"]
 edition = "2018"
+description = "Pulsar admin command line interface"
 
 [lib]
 name = "pulsar_admin"
 path = "src/lib/lib.rs"
 
 [[bin]]
-name = "pulsar"
+name = "pulsar-admin"
 path = "src/main.rs"
 
 [dependencies]

@@ -49,7 +49,22 @@ enum TenantCommands {
     },
 
     #[structopt(name = "update", alias = "set")]
-    Update {}
+    Update {
+        #[structopt(name = "TENANT_NAME")]
+        name: String,
+
+        #[structopt(long = "admin-role")]
+        admin_roles: Vec<String>,
+
+        #[structopt(long = "allowed-cluster")]
+        allowed_clusters: Vec<String>,
+    },
+
+    #[structopt(name = "delete", alias = "remove")]
+    Delete {
+        #[structopt(name = "TENANT_NAME")]
+        name: String,
+    }
 }
 
 #[derive(StructOpt, Debug, Clone)]
@@ -71,7 +86,9 @@ enum Commands {
 }
 
 #[derive(StructOpt, Debug, Clone)]
-#[structopt(name = "Pulsar CLI", about = "Pulsar command line interface")]
+#[structopt(
+    name = "Pulsar CLI",
+)]
 struct Cmd {
     #[structopt(short = "h", long = "host", default_value = "http://localhost:8080")]
     host: String,
@@ -119,8 +136,11 @@ fn main() -> Result<(), Box<Error>> {
                 TenantCommands::Create{name, admin_roles, allowed_clusters} => {
                     fn_tenant::tenant_create(conn_settings, format, name, admin_roles, allowed_clusters, opt.force)
                 }
-                TenantCommands::Update{} => {
-                    Ok(())
+                TenantCommands::Update{name, admin_roles, allowed_clusters} => {
+                    fn_tenant::tenant_update(conn_settings, format, name, admin_roles, allowed_clusters)
+                },
+                TenantCommands::Delete{name} => {
+                    fn_tenant::tenant_delete(conn_settings, format, name)
                 }
             }
         },

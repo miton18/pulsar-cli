@@ -42,13 +42,11 @@ pub fn get(host: String, name: &str) -> Result<Cluster, Box<dyn Error>> {
 /**
  * Create a new cluster
  */
-pub fn create(host: String, name: String, url: String, broker_url: String) -> Result<Cluster, Box<dyn Error>> {
+pub fn create(_host: String, _name: String, _url: String, _broker_url: String) -> Result<Cluster, Box<dyn Error>> {
   Ok(Cluster::new("".to_string(), "".to_string(), "".to_string()))
 }
 
-/**
- * 
- */
-pub fn get_failure_domains(host: String, name: &str) -> Result<(), Box<dyn Error>> {
+/// Return cluster failure domains
+pub fn get_failure_domains(_host: String, _name: &str) -> Result<(), Box<dyn Error>> {
   Ok(())
 }

@@ -1,4 +1,9 @@
 language: rust
+env:
+  global:
+  # CRATESIO_TOKEN
+  - secure: "FqJ53QGNghAqZoVGOTtxkfqAVdvBdfIMNud5DXAN1jTq1iULIiyPZuWbPC1ST5RK9eD5iFnXE7judvBfqDcAeyYA7X4zN5VjkcRiLeN8qJAF0ZnetjEgPvzhk74h5vrOUFWJYR+2Zptyu0lAmUNV8qIqAbKwSPgHhi2ApE1INWIA/bVTnqaWXgis28rlCdfQoN3dmMQPCl2j05azTRMCR/GWYUVwaQb9NwuOpestBwD0Vj1fS05etY4PViiYGw4+sOiBoUiaZxpm+TNdhf7LPKdNIMz+uUg26v8XraDABo4n4ePdhaoUfBmvH0gG5+C/7wkAADDKVpSL0P7I++gKVYbud1OkxCDNadx+Rvb+5WcAILtQ0FqsV1o4yGrERfLU/dpMiIrmmwMsBsurTsyQ6Fe5kMBB4ld1A50LhUyrqZMVmpJ3mubgOQY15/dbemFcwrcoc+tFVcHm0CJdNqnH1EeDGC9rItj30l1jnzVxpJj1Nui9tbL0Hx3rqwEc3MnEyfb5n/6SUr0DbuxSITWWWjzRu5RGJXOpa/Nnox+nhI+AxLZgbUZNlGUbU2hQOF7pRkEHMBqC67nPbNd+qXb/5Q+9+CSIN1xPEAvARBxadbJ0QdlZvirvkY3/aO6EDVTP3Xkfan+YbU66Q7Uxdp/htvyoNP7P3eBpDWd2ywGkPnc="
+
 rust:
 - stable
 - beta
@@ -11,10 +16,11 @@ cache: cargo
 before_script:
 - rustup component add clippy-preview
 script:
-- cargo build --verbose --all
+- cargo build --verbose
 - cargo clippy
-- cargo test --verbose --all
+- cargo test --verbose
 before_deploy:
+- cargo login ${CRATESIO_TOKEN}
 - cargo build --all --release
-deploy:
-- ./target/release/pulsar 
+#deploy:
+#- ./target/release/pulsar

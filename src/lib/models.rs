@@ -1,6 +1,7 @@
 extern crate serde;
 
 
+use std::string::ToString;
 use serde::{Deserialize, Serialize};
 use serde_json::Result;
 
@@ -29,7 +30,7 @@ pub struct Cluster {
 
 impl Cluster {
   pub fn new(name: String, service_url: String, broker_service_url: String) -> Cluster {
-    return Cluster{
+    Cluster{
       name, service_url, broker_service_url,
       service_url_tls: None,
       broker_service_url_tls: None,
@@ -38,7 +39,7 @@ impl Cluster {
   }
 
   pub fn to_json(&self) -> Result<String> {
-    return serde_json::to_string_pretty(self)
+    serde_json::to_string_pretty(self)
   }
 }
 
@@ -54,7 +55,7 @@ impl ToString for Cluster {
       res = format!("{} | {}", res, peer_cluster_names.join(","))
     }
 
-    return res
+    res
   }
 }
 
@@ -74,4 +75,10 @@ pub struct Tenant {
   pub name: String,
   pub admin_roles: Vec<String>,
   pub allowed_clusters: Vec<String>,
+}
+
+impl ToString for Tenant {
+  fn to_string(&self) -> String {
+    self.name.clone()
+  }
 }
